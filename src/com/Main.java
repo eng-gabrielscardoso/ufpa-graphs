@@ -33,36 +33,33 @@ public class Main {
 				insertEdge();
 				break;
 			case 3:
-				insertEdges();
-				break;
-			case 4:
 				removeEdge();
 				break;
-			case 5:
+			case 4:
 				hasEdgeBetween();
 				break;
-			case 6:
+			case 5:
 				getAdjacencyMatrix();
 				break;
-			case 7:
+			case 6:
 				getAdjacencyList();
 				break;
-			case 8:
+			case 7:
 				getTotalVertices();
 				break;
-			case 9:
+			case 8:
 				getTotalEdges();
 				break;
-			case 10:
+			case 9:
 				getDegrees();
 				break;
-			case 11:
+			case 10:
 				getInDegree();
 				break;
-			case 12:
+			case 11:
 				getOutDegree();
 				break;
-			case 13:
+			case 12:
 				printGraph();
 				break;
 			}
@@ -75,17 +72,16 @@ public class Main {
 		System.out.println("0 - Finish application");
 		System.out.println("1 - Create a new graph");
 		System.out.println("2 - Insert an edge");
-		System.out.println("3 - Insert a set of edges");
-		System.out.println("4 - Remove an edge");
-		System.out.println("5 - Check if has an edge between two vertices");
-		System.out.println("6 - Get the adjacency matrix");
-		System.out.println("7 - Get the adjacency list");
-		System.out.println("8 - Get the total number of vertices");
-		System.out.println("9 - Get the total number of edges");
-		System.out.println("10 - Get the degree of an undirected graph");
-		System.out.println("11 - Get the in-degree of an directed graph");
-		System.out.println("12 - Get the out-degree of an directed graph");
-		System.out.println("13 - Print the current graph");
+		System.out.println("3 - Remove an edge");
+		System.out.println("4 - Check if has an edge between two vertices");
+		System.out.println("5 - Get the adjacency matrix");
+		System.out.println("6 - Get the adjacency list");
+		System.out.println("7 - Get the total number of vertices");
+		System.out.println("8 - Get the total number of edges");
+		System.out.println("9 - Get the degree of an undirected graph");
+		System.out.println("10 - Get the in-degree of an directed graph");
+		System.out.println("11 - Get the out-degree of an directed graph");
+		System.out.println("12 - Print the current graph");
 	}
 	
 	public static void stop() {
@@ -94,7 +90,12 @@ public class Main {
 	}
 	
 	public static void createGraph() {
-		
+		vertices.clear();
+		edges.clear();
+		currentGraph = null;
+
+		System.out.print("Is a directed graph? (1 - yes; 2 - no) ");
+		int isDirected = scan.nextInt();
 		
 		do {
 			System.out.println("## Creating vertices");
@@ -138,8 +139,13 @@ public class Main {
 					if(insertAnotherEdge == 1) {
 						continue;
 					} else {
-						Graph g = new Graph(edges);
-						currentGraph = g;
+						if(isDirected == 1) {
+							Graph g = new Graph(edges, true);
+							currentGraph = g;
+						} else { 
+							Graph g = new Graph(edges);
+							currentGraph = g;
+						}
 						break;
 					}
 				} while(true);
@@ -175,15 +181,9 @@ public class Main {
 			if(insertAnotherEdge == 1) {
 				continue;
 			} else {
-				Graph g = new Graph(edges);
-				currentGraph = g;
 				break;
 			}
 		} while(true);
-	}
-
-	public static void insertEdges() {
-		
 	}
 
 	public static void removeEdge() {
@@ -226,11 +226,11 @@ public class Main {
 	}
 
 	public static void getTotalVertices() {
-		System.out.println("Total vertices: " + vertices.size());
+		System.out.println("Total vertices: " + currentGraph.getTotalVertices());
 	}
 
 	public static void getTotalEdges() {
-		System.out.println("Total edges: " + edges.size());
+		System.out.println("Total edges: " + currentGraph.getTotalEdges());
 	}
 
 	public static void getDegrees() {

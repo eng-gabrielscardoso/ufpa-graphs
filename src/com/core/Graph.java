@@ -1,6 +1,8 @@
 package com.core;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Graph {
 	private ArrayList<Edge> edges = new ArrayList<Edge>();
@@ -32,16 +34,16 @@ public class Graph {
 	}
 	
 	public int getTotalVertices() {
+		Set<Vertex> vertices = new HashSet<Vertex>();
 		int totalVertices = 0;
 		
 		for(Edge edge: this.getEdges()) {
-			if(edge.getVertexTo() != null && edge.getVertexFrom() != null) {
-				totalVertices += 2;
-			}
-			
-			if(edge.getVertexTo() != null || edge.getVertexFrom() != null) {
-				totalVertices += 1;
-			}
+			vertices.add(edge.getVertexFrom());
+			vertices.add(edge.getVertexTo());
+		}
+		
+		for(Vertex vertex: vertices) {
+			totalVertices++;
 		}
 		
 		return totalVertices;
