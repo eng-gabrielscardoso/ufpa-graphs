@@ -51,7 +51,7 @@ public class Main {
 				getTotalEdges();
 				break;
 			case 9:
-				getDegrees();
+				getDegree();
 				break;
 			case 10:
 				getInDegree();
@@ -130,8 +130,25 @@ public class Main {
 					
 					Vertex vertexFrom = vertices.get(vertexFromIndex);
 					Vertex vertexTo = vertices.get(vertexToIndex);
-					Edge e = new Edge(vertexFrom, vertexTo, edgeWeight);
-					edges.add(e);
+					
+					boolean isAValidEdge = true;
+					if(edges.size() != 0) {
+						for(Edge edge: edges) {
+							if(edge.getVertexFrom() == vertexTo && edge.getVertexTo() == vertexFrom) {
+								isAValidEdge = false;
+								break;
+							}
+							isAValidEdge = true;
+						}
+					}
+					
+					
+					if(isAValidEdge) {
+						Edge e = new Edge(vertexFrom, vertexTo, edgeWeight);
+						edges.add(e);
+					} else {
+						System.out.println("There is already an edge between the vertices");
+					}
 					
 					System.out.print("Have you want to insert one more? (1 - Yes; 2 - No): ");
 					int insertAnotherEdge = scan.nextInt();
@@ -172,8 +189,22 @@ public class Main {
 			
 			Vertex vertexFrom = vertices.get(vertexFromIndex);
 			Vertex vertexTo = vertices.get(vertexToIndex);
-			Edge e = new Edge(vertexFrom, vertexTo, edgeWeight);
-			edges.add(e);
+			
+			boolean isAValidEdge = true;
+			for(Edge edge: currentGraph.getEdges()) {
+				if(edge.getVertexFrom() == vertexTo && edge.getVertexTo() == vertexFrom) {
+					isAValidEdge = false;
+					break;
+				}
+				isAValidEdge = true;
+			}
+			
+			if(isAValidEdge) {
+				Edge e = new Edge(vertexFrom, vertexTo, edgeWeight);
+				edges.add(e);				
+			} else {
+				System.out.println("There is already an edge between the vertices");
+			}
 			
 			System.out.print("Have you want to insert one more? (1 - Yes; 2 - No): ");
 			int insertAnotherEdge = scan.nextInt();
@@ -233,8 +264,25 @@ public class Main {
 		System.out.println("Total edges: " + currentGraph.getTotalEdges());
 	}
 
-	public static void getDegrees() {
+	public static void getDegree() {
+		System.out.println("Available vertices: {");
+		for(int i = 0; i < vertices.size(); i++) {
+			System.out.println(i + " - " + vertices.get(i).toString());
+		}
+		System.out.println("}");
 		
+		System.out.print("Inform the index of the vertex: ");
+		int vertexIndex = scan.nextInt();
+		Vertex vertex = vertices.get(vertexIndex);
+		int degree = 0;
+		
+		for(Edge edge: currentGraph.getEdges()) {
+			if(edge.getVertexFrom() == vertex || edge.getVertexTo() == vertex) {
+				degree++;
+			}
+		}
+		
+		System.out.println("The degre of the vertex is " + degree);
 	}
 
 	public static void getInDegree() {
