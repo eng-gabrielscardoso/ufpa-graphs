@@ -220,9 +220,13 @@ public class Main {
 	public static void removeEdge() {
 		System.out.println("Available edges: {");
 		for(int i = 0; i < edges.size(); i++) {
-			
+			System.out.println(currentGraph.getEdges().get(i).toString());
 		}
 		System.out.println("}");
+		
+		System.out.print("Inform the index of the edge to be removed: ");
+		int edgeToBeRemovedIndex = scan.nextInt();
+		edges.remove(edgeToBeRemovedIndex);
 	}
 
 	public static void hasEdgeBetween() {
