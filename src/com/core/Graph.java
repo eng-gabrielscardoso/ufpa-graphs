@@ -35,18 +35,13 @@ public class Graph {
 	
 	public int getTotalVertices() {
 		Set<Vertex> vertices = new HashSet<Vertex>();
-		int totalVertices = 0;
 		
 		for(Edge edge: this.getEdges()) {
 			vertices.add(edge.getVertexFrom());
 			vertices.add(edge.getVertexTo());
 		}
 		
-		for(Vertex vertex: vertices) {
-			totalVertices++;
-		}
-		
-		return totalVertices;
+		return vertices.size();
 	}
 	
 	public int getTotalEdges() {
